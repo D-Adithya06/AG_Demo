@@ -1,0 +1,317 @@
+:root {
+    --primary-color: #ffffff;
+    --text-color: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --hover-bg: rgba(255, 255, 255, 0.25);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Zen Pattern Overlay */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Sacred Geometry-ish pattern: interlaced circles */
+    background-image:
+        radial-gradient(circle at 100% 150%, rgba(255, 255, 255, 0.1) 24%, rgba(255, 255, 255, 0) 25%),
+        radial-gradient(circle at 0% 150%, rgba(255, 255, 255, 0.1) 24%, rgba(255, 255, 255, 0) 25%),
+        radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.1) 12%, rgba(255, 255, 255, 0) 13%),
+        radial-gradient(circle at 100% 50%, rgba(255, 255, 255, 0.1) 12%, rgba(255, 255, 255, 0) 13%),
+        radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.1) 12%, rgba(255, 255, 255, 0) 13%);
+    background-size: 100px 100px;
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Ambient Floating Orb */
+body::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: breathe 10s infinite ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+
+.container {
+    padding: 20px;
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari support */
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+.timer-card {
+    text-align: center;
+    padding: 3rem 4rem;
+    width: 100%;
+    max-width: 500px;
+    /* Slightly wider for new controls */
+    animation: fadeIn 0.8s ease-out;
+}
+
+.app-header {
+    margin-bottom: 2rem;
+}
+
+.app-header h1 {
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    color: white;
+}
+
+.description {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 30px;
+    display: inline-flex;
+}
+
+.mode-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.duration-controls {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.duration-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.presets {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.preset-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.preset-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.custom-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.custom-input input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 6px 35px 6px 15px;
+    /* Right padding for 'min' label */
+    color: white;
+    width: 100px;
+    text-align: center;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.custom-input input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.custom-input .unit {
+    position: absolute;
+    right: 12px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Chrome, Safari, Edge, Opera - hide spin buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.timer-display {
+    font-size: 6rem;
+    font-weight: 600;
+    margin: 1.5rem 0;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-variant-numeric: tabular-nums;
+    /* Keeps numbers monospaced */
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.control-btn {
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.control-btn.primary {
+    background: white;
+    color: #4e54c8;
+}
+
+.control-btn.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn.secondary:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-card {
+        padding: 2rem;
+    }
+
+    .timer-display {
+        font-size: 4.5rem;
+    }
+}

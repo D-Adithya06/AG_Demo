@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="timer-card glass">
+            <div class="app-header">
+                <h1>Focus Flow</h1>
+                <p class="description">Master your time, one session at a time.</p>
+            </div>
+
+            <div class="mode-selector">
+                <button id="work-btn" class="mode-btn active">Work</button>
+                <button id="break-btn" class="mode-btn">Break</button>
+            </div>
+
+            <div class="duration-controls">
+                <span class="duration-label">Set Duration:</span>
+                <div class="presets">
+                    <button class="preset-btn" data-time="25">25m</button>
+                    <button class="preset-btn" data-time="45">45m</button>
+                    <button class="preset-btn" data-time="60">60m</button>
+                </div>
+                <div class="custom-input">
+                    <input type="number" id="custom-time" placeholder="Custom" min="1" max="180">
+                    <span class="unit">min</span>
+                </div>
+            </div>
+
+            <div class="timer-display" id="timer">25:00</div>
+
+            <div class="controls">
+                <button id="start-btn" class="control-btn primary">Start</button>
+                <button id="pause-btn" class="control-btn secondary" disabled>Pause</button>
+                <button id="reset-btn" class="control-btn secondary">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
